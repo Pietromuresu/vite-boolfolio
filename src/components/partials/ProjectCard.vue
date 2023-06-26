@@ -23,7 +23,8 @@ export default {
 
   <div class="pm-projectCard">
     <div class="pm-project-image">
-      <img :src="storage_path + img_path" :alt="img_path">
+      <img v-if="img_path" :src="storage_path + img_path" :alt="img_path">
+      <img v-else :src="storage_path + 'uploads/default-image.jpeg' " :alt="img_path" >
     </div>
 
     <div class="pm-project-details">
@@ -48,7 +49,7 @@ export default {
     min-height: 300px;
     max-width: 350px;
     max-height: 400px;
-    width: calc(90% / 4);
+    width: calc(90% / 5);
 
     text-align: center;
     
