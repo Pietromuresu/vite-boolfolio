@@ -4,12 +4,19 @@
 
   export default {
 
+  data(){
+    return {
+      projects: []
+    }
+  },
+
   methods:{
     getApi(){
 
       axios.get(store.apiUrl + "projects")
             .then(results => {
-                console.log(results.data)
+                this.projects = results.data;
+                console.log(this.projects);
             })
     }
   },
@@ -35,11 +42,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-            <td>#</td>
-            <td>#</td>
-            <td>#</td>
-            <td>#</td>
+        <tr v-for="project in projects" :key="project.id">
+          <td>{{ project.id }}</td>
+          <td>{{ project.name }}</td>
+            <td>{{ project.type.name }}</td>
+            <td>
+              <span v-for="technology in project.technologies" :key="technology.id">
+                {{ technology.name }} - 
+              </span>
+            </td>
         </tr>
       </tbody>
     </table>
