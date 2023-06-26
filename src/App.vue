@@ -2,7 +2,13 @@
   import { store } from "./store/store";
   import axios from "axios";
 
+import ProjectCard from './components/partials/ProjectCard.vue';
+
   export default {
+    name: "App",
+  components: {    
+    ProjectCard 
+  },
 
   data(){
     return {
@@ -30,31 +36,17 @@
 <template>
   <h1>Vite Boolfolio </h1>
 
-  <div class="container">
+  <div class="container pm-card-wrapper">
 
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Technologies</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="project in projects" :key="project.id">
-          <td>{{ project.id }}</td>
-          <td>{{ project.name }}</td>
-            <td>{{ project.type.name }}</td>
-            <td>
-              <span v-for="technology in project.technologies" :key="technology.id">
-                {{ technology.name }} - 
-              </span>
-            </td>
-        </tr>
-      </tbody>
-    </table>
-
+     <ProjectCard
+      v-for="project in projects" 
+      :key="project.id"
+      :name="project.name" 
+      :technologies="project.technologies" 
+      :type="project.type" 
+      :is_done="project.is_done"
+      :img_path="project.image_path"/>
+  
   </div>
 </template>
 
