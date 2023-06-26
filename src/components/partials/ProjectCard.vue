@@ -49,7 +49,7 @@ export default {
     min-height: 300px;
     max-width: 350px;
     max-height: 400px;
-    width: calc(90% / 5);
+    width: calc(90% / 4);
 
     text-align: center;
     
