@@ -1,6 +1,22 @@
 <script>
-export default {
+  import { store } from "./store/store";
+  import axios from "axios";
 
+  export default {
+
+  methods:{
+    getApi(){
+
+      axios.get(store.apiUrl + "projects")
+            .then(results => {
+                console.log(results.data)
+            })
+    }
+  },
+
+  mounted(){
+    this.getApi();
+  }
 }
 </script>
 
