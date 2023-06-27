@@ -10,16 +10,20 @@
 </script>
 
 <template>
-  
+
   <Header />
 
-  <router-view></router-view>
+  <main>
+    <router-view></router-view>
+  </main>
   
 </template>
 
 <style lang="scss">
 
-
+main{
+  margin-top: 80px;
+}
 
 
 </style>  

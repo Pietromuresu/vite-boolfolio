@@ -27,7 +27,7 @@ export default {
       <img v-else :src="storage_path + 'uploads/default-image.jpeg' " :alt="img_path" >
     </div>
 
-    <div class="pm-project-details">
+    <div class="pm-project-details p-10">
       <h3>{{ name }}</h3>
       <p>
        <span v-for="technology in technologies" :key="technology.id">
@@ -66,9 +66,6 @@ export default {
         max-width: 100%;
 
       }
-    }
-    .pm-project-details{
-      padding: 10px;
     }
   }
 </style>
