@@ -21,7 +21,7 @@ export default {
 
 <template>
 
-  <div class="pm-projectCard">
+  <div class="pm-projectCard mt-20">
     <div class="pm-project-image">
       <img v-if="img_path" :src="storage_path + img_path" :alt="img_path">
       <img v-else :src="storage_path + 'uploads/default-image.jpeg' " :alt="img_path" >
@@ -65,6 +65,17 @@ export default {
       img{
         max-width: 100%;
 
+      }
+
+    }
+    .pm-project-details{
+
+      p, p>span{
+        margin-top: 10px;
+
+        &:last-of-type{
+          margin-bottom: 10px ;
+        }
       }
     }
   }
