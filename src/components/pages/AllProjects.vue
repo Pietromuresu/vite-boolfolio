@@ -22,6 +22,8 @@ export default {
       numLastPage: null,
       lastPage: null,
       firstPage: null,
+      typesUrl : "http://127.0.0.1:8000/api/projects/type",
+
     }
   },
 
@@ -37,7 +39,7 @@ export default {
                 this.lastPage = results.data.last_page_url;
                 this.numLastPage = results.data.last_page;
                 this.firstPage = results.data.first_page_url;
-                console.log(this.types);
+
             })
     },
     getType( apiUrl){
@@ -59,14 +61,20 @@ export default {
 
                 console.log(this.technologies);
             })
-    }
+    },
+
+    getByType(id){
+      console.log(id);
+      this.getApi(store.typesUrl + id);
+      
   },
 
-  mounted(){
-    this.getApi(store.paginatedUrl);
-    this.getType(store.apiUrl + 'projects/types');
-    this.getTechnologies(store.apiUrl + 'projects/technologies');
-  }
+},
+mounted(){
+  this.getApi(store.paginatedUrl);
+  this.getType(store.apiUrl + 'projects/types');
+  this.getTechnologies(store.apiUrl + 'projects/technologies');
+},
 }
 </script>
 
@@ -82,10 +90,10 @@ export default {
         </strong>
         <ul>
           <li
-            v-for="elem in types"
-            :key="elem.id">
-            <button class="btn-custom">
-              {{ elem.name }}
+            v-for="typeOf in types"
+            :key="typeOf.id">
+            <button @click="getByType(typeOf.id)" class="btn-custom">
+              {{ typeOf.name }}
             </button>
           </li>
 
