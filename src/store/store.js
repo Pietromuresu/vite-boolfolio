@@ -6,5 +6,6 @@ export const store = reactive({
   paginatedUrl : "http://127.0.0.1:8000/api/projects?page=1",
   technologiesUrl : "http://127.0.0.1:8000/api/technologies",
   typesUrl : "http://127.0.0.1:8000/api/projects/project-types/",
+  technologiesUrl : "http://127.0.0.1:8000/api/projects/project-technologies/",
 
 })

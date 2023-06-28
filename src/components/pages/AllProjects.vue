@@ -39,10 +39,10 @@ export default {
                 this.lastPage = results.data.last_page_url;
                 this.numLastPage = results.data.last_page;
                 this.firstPage = results.data.first_page_url;
-
+                console.log(this.projects);
             })
     },
-    getType( apiUrl){
+    getType(apiUrl){
 
       axios.get(apiUrl)
             .then(results => {
@@ -69,6 +69,12 @@ export default {
       
   },
 
+    getByTechnology(id){
+      console.log(id);
+      this.getApi(store.technologiesUrl + id);
+      
+  },
+
 },
 mounted(){
   this.getApi(store.paginatedUrl);
@@ -92,7 +98,9 @@ mounted(){
           <li
             v-for="typeOf in types"
             :key="typeOf.id">
-            <button @click="getByType(typeOf.id)" class="btn-custom">
+            <button
+              @click="getByType(typeOf.id)"
+              class="btn-custom">
               {{ typeOf.name }}
             </button>
           </li>
@@ -108,7 +116,9 @@ mounted(){
           <li
             v-for="technology in technologies"
             :key="technology.id">
-            <button class="btn-custom">
+            <button
+              class="btn-custom"
+              @click="getByTechnology(technology.id)">
               {{technology.name}}
             </button>
           </li>
@@ -179,10 +189,7 @@ h1{
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 
-    .pm-filter-technologies{
-      margin-top: 100px;
-    }
-    
+
     .pm-filter-type,
     .pm-filter-technologies{
       
