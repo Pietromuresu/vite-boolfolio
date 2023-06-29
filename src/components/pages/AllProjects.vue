@@ -79,7 +79,7 @@ mounted(){
 </script>
 
 <template>
-  <h1>Vite Boolfolio </h1>
+  <h1>Vite Boolfolio </h1>  
 
   <div class="pm-row">
     <div class="pm-filter-projects mb-30 mt-30">
@@ -124,7 +124,7 @@ mounted(){
       </div>
     </div>
 
-    <div class="pm-container-projects">
+    <div v-if="store.projects.length > 0" class="pm-container-projects">
 
       <div class="container pm-card-wrapper">
 
@@ -147,29 +147,44 @@ mounted(){
         @click="getApi(store.firstPage)"
         class="pm-button-card-controller">
         &lt;&lt; 
-      </button>
+        </button>
       
-      <button
+        <button
         class="pm-button-card-controller"
         v-for="(link, index) in store.links"
         :key="index"
         v-html="link.label"
         @click="getApi(link.url)"
         :disabled="link.active || !link.url ">
-      </button>
+        </button>
       
-      <button
+        <button
         :disabled="store.currentPage == store.numLastPage"
         @click="getApi(store.lastPage)"
         class="pm-button-card-controller">
         &gt;&gt; 
-      </button>
+        </button>
+      
+      </div>
+    </div>
+
+    <div v-else class="no-projects-holder">
+      <h1>There's no project with those properties</h1>
     </div>
   </div>
-</div>
 </template>
 
 <style lang="scss" scoped>
+
+.no-projects-holder{
+  width: 90%;
+  margin: 0 auto;
+  h1{
+    margin-top: 200px;
+    text-align: center;
+    color: rgb(147, 42, 42);
+  }
+}
 
 h1{
   text-align: center;
