@@ -4,12 +4,14 @@ import { store } from "../../store/store";
 import axios from "axios";
 
 import ProjectCard from '../partials/ProjectCard.vue';
+import SearchBar from '../searchBar.vue';
 
 export default {
   name: 'AllProjects',
 
   components: {    
-    ProjectCard 
+    ProjectCard,
+    SearchBar 
   },
 
   data(){
@@ -81,6 +83,8 @@ mounted(){
 
   <div class="pm-row">
     <div class="pm-filter-projects mb-30 mt-30">
+
+      <SearchBar/>
       
       <div class="pm-filter-type p-10">
         <strong>

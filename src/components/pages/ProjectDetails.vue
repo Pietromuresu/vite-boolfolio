@@ -104,7 +104,7 @@ export default {
 
 .container {
   .titles{
-
+    
   }
 
   .img-container{
