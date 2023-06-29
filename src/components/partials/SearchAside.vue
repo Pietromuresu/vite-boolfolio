@@ -2,7 +2,7 @@
 <script>
 import { store } from '../../store/store';
 import axios from 'axios';
-import SearchBar from '../searchBar.vue';
+import SearchBar from '../SearchBar.vue';
 
 
 

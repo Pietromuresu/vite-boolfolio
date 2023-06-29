@@ -1,6 +1,32 @@
 <script>
 export default {
   name: 'Contacts',
+
+  data(){
+    return{
+
+      name : '',
+      mail : '',
+      message : ''
+      
+    }
+  },
+
+  methods: {
+    submitForm(){
+      const data = {
+      name : this.name,
+      mail : this.mail,
+      message : this.message
+
+      }
+
+    }
+  },
+
+  mounted(){
+    this.submitForm();
+  },
 }
 </script>
 
@@ -9,9 +35,28 @@ export default {
     <h1>Contacts</h1>
 
     <div class="container mt-20">
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt labore, quia nisi natus blanditiis optio iste magnam voluptatem iure autem ex maxime quibusdam odio, mollitia libero distinctio nemo sit hic harum ratione laborum suscipit atque? Dolores voluptates architecto recusandae adipisci quod est, dolorum ab eligendi totam maxime atque quo libero perspiciatis suscipit dignissimos accusantium quam praesentium ipsam minus eius blanditiis culpa? Officia atque perferendis aliquam adipisci quisquam est aspernatur quis modi sapiente, necessitatibus obcaecati minus quam dolor corrupti quaerat. Voluptatem, ex. Repellat, hic quis, delectus dolore harum impedit id, fugit blanditiis sequi ut doloremque quasi quo est modi placeat repudiandae temporibus. Doloribus repellat, quas quo unde molestias sequi aut. Facilis eos illo architecto consequuntur rerum doloribus ipsa quod exercitationem quisquam sapiente labore ea cupiditate, aut suscipit illum ad alias! Sapiente, eum iusto dolorum temporibus ratione, cumque consequuntur magnam maiores, pariatur tempora et repudiandae ut rem debitis ducimus? Debitis blanditiis accusantium maiores doloribus fugit autem ratione deleniti illum nesciunt, perspiciatis nihil magnam quidem voluptatibus, impedit optio temporibus a quos et tempora ad laboriosam officiis aliquid. Alias dolor illo eaque, praesentium possimus nulla eos perferendis, maxime voluptatum laboriosam nam, ab quos voluptatibus. Quis adipisci ea iusto praesentium laudantium aliquid esse. Voluptatibus, praesentium.
-      </p>
+      <form @submit.prevent="submitForm()">
+        <div class="mt-20 ">
+          <label class="d-block mb-10" for="name"><strong>Name</strong></label>
+          <input name="name" type="text" v-model="name" placeholder="Write your name">
+        </div>
+        <div class="mt-20 ">
+          <label class="d-block mb-10" for="mail"><strong>Mail</strong></label>
+          <input name="mail" type="mail" v-model="mail" placeholder="Write your mail">
+        </div>
+        <div class="mt-20 ">
+          <label class="d-block mb-10" for="message"><strong>Message</strong></label>
+          <textarea name="message" type="text" rows="10" v-model="message" placeholder="Write your message"></textarea>
+        </div>
+
+        <div class="btn-container">
+
+          <button type="submit"  class="btn-custom mt-50">
+            Send
+          </button>
+          
+        </div>
+      </form>
     </div>
   </div>
 
@@ -19,4 +64,25 @@ export default {
 
 <style lang="scss" scoped>
 
+.container{
+  form{
+    width: 50%;
+    margin: 0 auto;
+    input, textarea{
+      border-radius: 10px;
+      border: 0;
+      padding: 10px;
+      width: 100%;
+    }
+
+    .btn-container{
+      display: flex;
+      justify-content: end;
+      .btn-custom{
+        width: fit-content;
+        padding: 5px 15px;
+      }
+    }
+  }
+}
 </style>
