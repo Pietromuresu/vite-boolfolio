@@ -10,6 +10,7 @@ export const store = reactive({
   technologiesUrl : "http://127.0.0.1:8000/api/projects/project-technologies/",
   searchByName : "http://127.0.0.1:8000/api/projects/search/",
   projectUrl : "http://127.0.0.1:8000/api/projects/",
+  apiGetLead : "http://127.0.0.1:8000/api/mail",
 
 
 

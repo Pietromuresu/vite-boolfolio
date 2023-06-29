@@ -1,4 +1,6 @@
 <script>
+import axios from 'axios';
+import { store } from '../../store/store';
 export default {
   name: 'Contacts',
 
@@ -7,7 +9,9 @@ export default {
 
       name : '',
       mail : '',
-      message : ''
+      message : '',
+      errors : {},
+      success : false
       
     }
   },
@@ -21,12 +25,17 @@ export default {
 
       }
 
-    }
-  },
+      axios.post(store.apiGetLead, data)
+            .then(result => {
+              if(!result.data.success){    
+                  this.errors = result.data.errors
 
-  mounted(){
-    this.submitForm();
-  },
+              }else{
+                  this.errors = {}
+              }
+            });
+    }
+  }
 }
 </script>
 
@@ -39,14 +48,21 @@ export default {
         <div class="mt-20 ">
           <label class="d-block mb-10" for="name"><strong>Name</strong></label>
           <input name="name" type="text" v-model="name" placeholder="Write your name">
+          <p  v-if="errors">{{ errors.name }}</p>
         </div>
+
         <div class="mt-20 ">
           <label class="d-block mb-10" for="mail"><strong>Mail</strong></label>
           <input name="mail" type="mail" v-model="mail" placeholder="Write your mail">
+          <p  v-if="errors">{{ errors.mail }}</p>
+
         </div>
+
         <div class="mt-20 ">
           <label class="d-block mb-10" for="message"><strong>Message</strong></label>
           <textarea name="message" type="text" rows="10" v-model="message" placeholder="Write your message"></textarea>
+          <p  v-if="errors">{{ errors.message }}</p>
+
         </div>
 
         <div class="btn-container">
