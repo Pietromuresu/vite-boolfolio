@@ -28,6 +28,7 @@ export default {
 <template>
   <div class="search mt-30 mb-30">
     <input
+      @keyup.enter="getSearchedProjects(store.searchByName + nameToSearch)"
       type="text"
       v-model.trim="nameToSearch"
       placeholder="Search a project...">

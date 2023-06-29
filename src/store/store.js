@@ -1,4 +1,5 @@
 import { reactive } from "vue";
+import axios from "axios";
 
 export const store = reactive({
   
@@ -22,5 +23,20 @@ export const store = reactive({
   numLastPage: null,
   lastPage: null,
   firstPage: null,
+
+  getApi( apiUrl){
+
+    axios.get(apiUrl)
+          .then(results => {
+           
+              store.projects = results.data.data;
+              store.links = results.data.links;
+              store.currentPage = results.data.current_page;
+              store.lastPage = results.data.last_page_url;
+              store.numLastPage = results.data.last_page;
+              store.firstPage = results.data.first_page_url;
+
+          })
+  },
 
 })

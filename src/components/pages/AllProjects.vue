@@ -4,14 +4,14 @@ import { store } from "../../store/store";
 import axios from "axios";
 
 import ProjectCard from '../partials/ProjectCard.vue';
-import SearchBar from '../searchBar.vue';
+import SearchAside from '../partials/searchAside.vue';
 
 export default {
   name: 'AllProjects',
 
   components: {    
     ProjectCard,
-    SearchBar 
+    SearchAside
   },
 
   data(){
@@ -20,60 +20,9 @@ export default {
 
     }
   },
-
-  methods:{
-    getApi( apiUrl){
-
-      axios.get(apiUrl)
-            .then(results => {
-             
-                store.projects = results.data.data;
-                store.links = results.data.links;
-                store.currentPage = results.data.current_page;
-                store.lastPage = results.data.last_page_url;
-                store.numLastPage = results.data.last_page;
-                store.firstPage = results.data.first_page_url;
-
-            })
-    },
-    getType(apiUrl){
-
-      axios.get(apiUrl)
-            .then(results => {
-  
-                store.types = results.data;
-
-
-            })
-    },
-    getTechnologies( apiUrl){
-
-      axios.get(apiUrl)
-            .then(results => {
-
-                store.technologies = results.data;
-
-
-            })
-    },
-
-    getByType(id){
-      console.log(id);
-      this.getApi(store.typesUrl + id);
-      
-  },
-
-    getByTechnology(id){
-      console.log(id);
-      this.getApi(store.technologiesUrl + id);
-      
-  },
-
-},
 mounted(){
-  this.getApi(store.paginatedUrl);
-  this.getType(store.apiUrl + 'projects/types');
-  this.getTechnologies(store.apiUrl + 'projects/technologies');
+  store.getApi(store.paginatedUrl);
+
 },
 }
 </script>
@@ -82,47 +31,7 @@ mounted(){
   <h1>Vite Boolfolio </h1>  
 
   <div class="pm-row">
-    <div class="pm-filter-projects mb-30 mt-30">
-
-      <SearchBar/>
-      
-      <div class="pm-filter-type p-10">
-        <strong>
-          Filter By Type
-        </strong>
-        <ul>
-          <li
-            v-for="typeOf in store.types"
-            :key="typeOf.id">
-            <button
-              @click="getByType(typeOf.id)"
-              class="btn-custom">
-              {{ typeOf.name }}
-            </button>
-          </li>
-
-        </ul>
-        
-      </div>
-      <div class="pm-filter-technologies p-10">
-        <strong>
-          Filter By Technologies
-        </strong>
-        <ul>
-          <li
-            v-for="technology in store.technologies"
-            :key="technology.id">
-            <button
-              class="btn-custom"
-              @click="getByTechnology(technology.id)">
-              {{technology.name}}
-            </button>
-          </li>
-
-        </ul>
-        
-      </div>
-    </div>
+    <searchAside/>
 
     <div v-if="store.projects.length > 0" class="pm-container-projects">
 
@@ -144,7 +53,7 @@ mounted(){
       <div class="pm-card-controller">
         <button
         :disabled="store.currentPage == 1"
-        @click="getApi(store.firstPage)"
+        @click="store.getApi(store.firstPage)"
         class="pm-button-card-controller">
         &lt;&lt; 
         </button>
@@ -154,13 +63,13 @@ mounted(){
         v-for="(link, index) in store.links"
         :key="index"
         v-html="link.label"
-        @click="getApi(link.url)"
+        @click="store.getApi(link.url)"
         :disabled="link.active || !link.url ">
         </button>
       
         <button
         :disabled="store.currentPage == store.numLastPage"
-        @click="getApi(store.lastPage)"
+        @click="store.getApi(store.lastPage)"
         class="pm-button-card-controller">
         &gt;&gt; 
         </button>
@@ -193,36 +102,6 @@ h1{
 
 .pm-row{
   display: flex;
-  .pm-filter-projects{
-
-    background-color: #c7d2dd;
-    width: 250px;
-    text-align: center;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-
-
-    .pm-filter-type,
-    .pm-filter-technologies{
-      
-        
-      ul{
-        padding: 10px 20px;
-        display: flex;
-        flex-wrap: wrap;
-        
-        
-        li{
-          margin: 10px 2px;
-          list-style: none;
-          
-          .btn-custom{
-            background-color: #00666480;
-          }
-        }
-      }
-    }
-  }
   
   .pm-container-projects{
     margin: 0 auto;
