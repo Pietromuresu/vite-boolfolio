@@ -11,13 +11,15 @@ export default {
       mail : '',
       message : '',
       errors : {},
-      success : false
+      success : false,
+      sent : true
       
     }
   },
 
   methods: {
     submitForm(){
+      this.sent = false;
       const data = {
       name : this.name,
       mail : this.mail,
@@ -33,6 +35,11 @@ export default {
               }else{
                   this.errors = {}
               }
+              this.name = '',
+              this.mail = '',
+              this.message = ''
+
+              this.sent = true;
             });
     }
   }
@@ -67,7 +74,7 @@ export default {
 
         <div class="btn-container">
 
-          <button type="submit"  class="btn-custom mt-50">
+          <button :disabled="!sent" type="submit"  class="btn-custom mt-50">
             Send
           </button>
           
