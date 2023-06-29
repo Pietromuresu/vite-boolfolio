@@ -14,15 +14,7 @@ export default {
 
   data(){
     return {
-      projects: [],
-      types: [],
-      technologies: [],
-      links: [],
-      currentPage: null,
-      numLastPage: null,
-      lastPage: null,
-      firstPage: null,
-      typesUrl : "http://127.0.0.1:8000/api/projects/type",
+      store
 
     }
   },
@@ -33,13 +25,13 @@ export default {
       axios.get(apiUrl)
             .then(results => {
              
-                this.projects = results.data.data;
-                this.links = results.data.links;
-                this.currentPage = results.data.current_page;
-                this.lastPage = results.data.last_page_url;
-                this.numLastPage = results.data.last_page;
-                this.firstPage = results.data.first_page_url;
-                console.log(this.projects);
+                store.projects = results.data.data;
+                store.links = results.data.links;
+                store.currentPage = results.data.current_page;
+                store.lastPage = results.data.last_page_url;
+                store.numLastPage = results.data.last_page;
+                store.firstPage = results.data.first_page_url;
+
             })
     },
     getType(apiUrl){
@@ -47,9 +39,9 @@ export default {
       axios.get(apiUrl)
             .then(results => {
   
-                this.types = results.data;
+                store.types = results.data;
 
-                console.log(this.types);
+
             })
     },
     getTechnologies( apiUrl){
@@ -57,9 +49,9 @@ export default {
       axios.get(apiUrl)
             .then(results => {
 
-                this.technologies = results.data;
+                store.technologies = results.data;
 
-                console.log(this.technologies);
+
             })
     },
 
@@ -96,7 +88,7 @@ mounted(){
         </strong>
         <ul>
           <li
-            v-for="typeOf in types"
+            v-for="typeOf in store.types"
             :key="typeOf.id">
             <button
               @click="getByType(typeOf.id)"
@@ -114,7 +106,7 @@ mounted(){
         </strong>
         <ul>
           <li
-            v-for="technology in technologies"
+            v-for="technology in store.technologies"
             :key="technology.id">
             <button
               class="btn-custom"
@@ -131,30 +123,31 @@ mounted(){
     <div class="pm-container-projects">
 
       <div class="container pm-card-wrapper">
-        
+
         <ProjectCard
-        v-for="project in projects" 
+        v-for="project in store.projects" 
         :key="project.id"
         :name="project.name" 
         :technologies="project.technologies" 
         :type="project.type" 
         :is_done="project.is_done"
-        :img_path="project.image_path"/>
-        
+        :img_path="project.image_path"
+        :slug="project.slug"/>
+          
       </div>
       
       
       <div class="pm-card-controller">
         <button
-        :disabled="currentPage == 1"
-        @click="getApi(firstPage)"
+        :disabled="store.currentPage == 1"
+        @click="getApi(store.firstPage)"
         class="pm-button-card-controller">
         &lt;&lt; 
       </button>
       
       <button
         class="pm-button-card-controller"
-        v-for="(link, index) in links"
+        v-for="(link, index) in store.links"
         :key="index"
         v-html="link.label"
         @click="getApi(link.url)"
@@ -162,8 +155,8 @@ mounted(){
       </button>
       
       <button
-        :disabled="currentPage == numLastPage"
-        @click="getApi(lastPage)"
+        :disabled="store.currentPage == store.numLastPage"
+        @click="getApi(store.lastPage)"
         class="pm-button-card-controller">
         &gt;&gt; 
       </button>
